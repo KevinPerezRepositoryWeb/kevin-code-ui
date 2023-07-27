@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+/*** Estilos de Prism Js */
+@import "~prismjs/plugins/toolbar/prism-toolbar";
+@import "~prismjs/themes/prism-okaidia";
+
+/** https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/#mat-icon-list-category-av */
+
+/* Ejemplo de cambio de color para las palabras clave de JavaScript */
+.token.keyword {
+  color: #581bff; /* Cambiar el color a tu elección */
+}
+
+/* Cambiar el color de fondo y los estilos de borde de los bloques de código */
+
+pre {
+  background-color: #000000 !important; /* Cambiar el color de fondo a tu elección */
+  border: 1px solid #cccccc !important; /* Cambiar el estilo de borde a tu elección */
+  font-size: 24px !important; /* Cambiar el tamaño de fuente a tu elección */
+  font-family: "Courier New", monospace !important; /* Cambiar la fuente a tu elección */
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
