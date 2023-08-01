@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MaterialModule } from './material/material.module';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -11,13 +12,18 @@ import { RouterModule } from '@angular/router';
     NavigationComponent
   ],
   imports: [
+    
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     NavigationComponent,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
 
   ]
 })

@@ -1,0 +1,5 @@
+<div class="pagination"  [@fadeOutRightAnimation]>
+  <button (click)="prevPage()" [disabled]="currentPage === 0">Anterior</button>
+  <span> Página {{ currentPage + 1 }} de {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages - 1">Siguiente</button>
+</div>

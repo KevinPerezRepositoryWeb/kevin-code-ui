@@ -1,24 +1,126 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import * as CodeMirror from 'codemirror';
+import { DetailCodeComponent } from '../../alerts/detail-code/detail-code.component';
 
 @Component({
   selector: 'app-code',
   templateUrl: './code.component.html',
-  styleUrls: ['./code.component.css']
+  styleUrls: ['./code.component.css'],
 })
-export class CodeComponent {
+export class CodeComponent implements OnInit, AfterViewInit {
 
-  htmlContent: string = `Add Prism styles</h2>\n<p>Next add Prism styles into your
-   <code>styles.scss</code>. Theme CSS is needed at least. Check my 
-   <a href=\"https://auralinna.blog/post/2017/how-to-customize-bootstrap-styles-and-variables-when-using-ng-bootstrap\">
-   earlier blog post</a> how to change Angular to use SCSS instead of CSS if you don't use SCSS already. Alternatively y
-   ou can add CSS files directly into your HTML.</p>\n<pre><code class=\"language-scss\">@import &quot;~prismjs/plugins/too
-   lbar/prism-toolbar.css&quot;;\n@import &quot;~prismjs/themes/prism-okaidia&quot;;\n</code></pre>\n<hr />\n<p>It should be 
-   working now. Please feel free to comment this post if you have questions or suggestions how to improve code base.</p>
-  `;
+  @ViewChild('editor') editorRef!: ElementRef;
 
-  private highlighted: boolean = false;
+  private codeMirrorInstance!: CodeMirror.Editor;
+
+  form!: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private matDialog: MatDialog,
+    private renderer: Renderer2, private el: ElementRef
+    ) {
+
+  }
+
+  ngOnInit(): void {
+    this.initForm()
+    this.addClickEvents();
+
+  }
+
+  initForm(){
+    this.form = this.fb.group({
+      editor: [''],
+      icono: [''],
+      title: ['Código para ordenar un array'],
+    });
+  }
+  addClickEvents() {
+    const selectElement = this.el.nativeElement.querySelector('#select');
+    const opcionesElement = this.el.nativeElement.querySelector('#opciones');
+    const contenidoSelectElement = this.el.nativeElement.querySelector('#select .contenido-select');
+    const hiddenInputElement = this.el.nativeElement.querySelector('#inputSelect');
+
+    // Selección de todas las opciones y asignación de evento click
+    const opciones = this.el.nativeElement.querySelectorAll('#opciones > .opcion');
+    opciones.forEach((opcion:any) => {
+      this.renderer.listen(opcion, 'click', (event) => {
+        event.preventDefault();
+        contenidoSelectElement.innerHTML = opcion.innerHTML;
+        selectElement.classList.toggle('active');
+        opcionesElement.classList.toggle('active');
+        hiddenInputElement.value = opcion.querySelector('.titulo').innerText;
+      });
+    });
+
+    // Asignación de evento click al elemento select
+    this.renderer.listen(selectElement, 'click', () => {
+      selectElement.classList.toggle('active');
+      opcionesElement.classList.toggle('active');
+    });
+  }
+
+  ngAfterViewInit() {
+    this.initCodeMirror()
+  }
+
+  initCodeMirror() {
+    const editorOptions: any = {
+      lineNumbers: true, // Puedes personalizar las opciones según tus necesidades
+      mode: 'javascript', // Establece el modo de lenguaje
+      theme: 'dracula', // Tema por defecto
+      scrollbarStyle:'native'
+    };
+
+    this.codeMirrorInstance = CodeMirror.fromTextArea(this.editorRef.nativeElement, editorOptions);
+    this.codeMirrorInstance.setSize('100%', '100%'); // Establecer el ancho del editor al 80% del contenedor
+    this.codeMirrorInstance.setValue('<div></div')
+  }
 
 
+  changeTheme(theme: string) {
+    this.codeMirrorInstance.setOption('theme', theme);
+  }
 
+  get editor(): string {
+    if (this.codeMirrorInstance) return this.codeMirrorInstance.getValue();
+    return "";
+  }
+
+  dis() {
+     console.log(this.editor)
+    return false;
+  }
+
+  getIconImageUrl(iconName: string): string {
+    return `assets/icons/${iconName}`;
+  }
+
+  lenguajes = [ // Puedes agregar aquí más países si lo deseas
+    { icon: 'assets/icons/angular.svg', name: 'Angular', description:'Framework JS' },
+    { icon: 'assets/icons/flutter.svg', name: 'Flutter', description:'Framework Multiplaforma'  },
+    // Agrega más países aquí con sus respectivos códigos y nombres
+  ];
+
+  getFlagPath(code: string): string {
+    return `assets/icons/${code.toLowerCase()}.svg`;
+  }
+  
+  openDetailCode() {
+    this.matDialog.open(DetailCodeComponent, {
+      width: '400px',
+      height:'400px',
+      data: {
+        
+      }
+    })
+  }
 
 }
+
+
+
+

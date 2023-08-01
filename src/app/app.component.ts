@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HighlightService } from './services/highlight.service';
 
 @Component({
   selector: 'app-root',
@@ -15,14 +14,6 @@ export class AppComponent {
   }
   </code></pre>`;
 
-  constructor(private highlightService: HighlightService) {}
-  private highlighted: boolean = false
 
-  ngAfterViewChecked() {
-    if (!this.highlighted) {
-      this.highlightService.highlightAll()
-      this.highlighted = true
-    }
-  }
   
 }

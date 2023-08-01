@@ -1,0 +1,22 @@
+<div [@bounceAnimation]>
+  <mat-progress-bar mode="determinate" [value]="progressValue" *ngIf="showProgressBar"></mat-progress-bar>
+
+  <div class="grid-container" (click)="close()">
+
+    <!--Item 1 (Ocupa 2 filas)-->
+    <div class="item item1">
+      <mat-icon class="mat-icon">check_circle</mat-icon>
+    </div>
+
+    <!--Item 2 (Fila 1)-->
+    <div class="item item2">
+      <span>Genial :D</span>
+    </div>
+
+    <!--Item 3 (Fila 2)-->
+    <div class="item item3">
+      <span>{{data.message}}</span>
+    </div>
+
+  </div>
+</div>

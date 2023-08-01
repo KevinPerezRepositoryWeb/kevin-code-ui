@@ -1,0 +1,12 @@
+.mat-list-item:hover{
+    background-color: #1A1A41;/* Cambia el color de fondo a rojo cuando se presiona el botón */  
+}
+
+
+.mat-list-item{
+    box-shadow:  60px;
+    margin: 10px 10px;
+    color: #fff;
+    border-radius: 1.1rem;
+    background-color: #4070f4;
+}

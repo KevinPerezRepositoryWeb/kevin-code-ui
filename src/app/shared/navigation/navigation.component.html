@@ -1,12 +1,12 @@
 <mat-toolbar class="toolbar">
-    <button mat-icon-button (click)="isExpanded = !isExpanded">
+    <button mat-icon-button (click)="expandend()">
         <mat-icon>{{isExpanded?'arrow_back':'menu'}}</mat-icon>
     </button>
     <h1 class="example-app-name">Bienvenido Kevin Perez </h1>
 </mat-toolbar>
-<mat-sidenav-container class="container" autosize>
+<mat-sidenav-container class="sidenav-content" autosize>
     <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
-        (mouseleave)="mouseleave()">
+        (mouseleave)="mouseleave()" *ngIf="visibilitySidenavContent">
         <mat-nav-list>
             <mat-list-item (click)="showSubmenu = !showSubmenu" (click)="navigate(item)" class="parent" *ngFor="let item of dataNav">
                 <span class="full-width" *ngIf="isExpanded || isShowing">{{item.label}}</span>
@@ -18,7 +18,7 @@
 
     </mat-sidenav>
 
-    <div class="sidenav-content">
+    <div class="container">
          <router-outlet></router-outlet>
     </div>
 

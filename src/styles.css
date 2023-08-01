@@ -1,21 +1,15 @@
-/*** Estilos de Prism Js */
-@import "~prismjs/plugins/toolbar/prism-toolbar";
-@import "~prismjs/themes/prism-okaidia";
+/* Themes CodeMirror*/
+@import "codemirror/theme/darcula";
+@import "codemirror/theme/dracula";
+@import "codemirror/theme/isotope";
 
 /** https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/#mat-icon-list-category-av */
 
-/* Ejemplo de cambio de color para las palabras clave de JavaScript */
-.token.keyword {
-  color: #581bff; /* Cambiar el color a tu elección */
-}
-
-/* Cambiar el color de fondo y los estilos de borde de los bloques de código */
-
-pre {
-  background-color: #000000 !important; /* Cambiar el color de fondo a tu elección */
-  border: 1px solid #cccccc !important; /* Cambiar el estilo de borde a tu elección */
-  font-size: 24px !important; /* Cambiar el tamaño de fuente a tu elección */
-  font-family: "Courier New", monospace !important; /* Cambiar la fuente a tu elección */
+/* styles.scss */
+:root {
+  --color-primary: #4070f4; /* Define la variable --color-primary con el color azul como valor */
+  --color-secondary: #1a1a41; /* Define la variable --color-*/
+  --color-div-input: #f4f4f7;
 }
 
 html,
@@ -26,3 +20,31 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.mat-snack-bar-container {
+  border-left: 6px solid #4070f4 !important;
+  box-shadow: 0 15px 10px rgba(0, 0, 0, 0.1) !important;
+  background: #fff !important;
+  border-radius: 12px;
+}
+
+.mat-progress-bar {
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+  margin-bottom: 10px !important;
+}
+
+.container {
+  padding: 10px;
+}
+
+.mat-dialog-container {
+  background: #fff;
+  transition: height 0.2s ease;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+
+
+
+

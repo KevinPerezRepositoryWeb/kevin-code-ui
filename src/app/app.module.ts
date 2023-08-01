@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { PagesModule } from './components/pages/pages.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlertsModule } from './components/alerts/alerts.module';
 
 @NgModule({
   declarations: [
@@ -16,12 +17,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PagesModule,
     BrowserModule,
     SharedModule,
+    AlertsModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    
   ],
-  exports: [
-    SharedModule
-  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-.container {
+.sidenav-content {
     height: 90%;
     border: none;
   }
@@ -10,9 +10,11 @@
 
 }
 
-  .sidenav-content {
+  .container {
     height: 100%;
-    background-color: #eef5fe;
+    padding: 12px;
+    /** background-color: #eef5fe; */
+    background-color: white;
   }
   .example-sidenav {
      user-select: none;
@@ -37,3 +39,5 @@
   .submenu.expanded {
     transform: scaleY(1);
   }
+
+  
