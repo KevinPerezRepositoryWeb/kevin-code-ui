@@ -29,3 +29,14 @@ export const bounceAnimation = trigger('bounceAnimation', [
       ]))
     ])
   ]);
+
+
+ export const cardAnimate= trigger('onOff', [
+    transition(':enter', [
+      style({ transform:'scale(0)' }),
+      animate('500ms', style({ transform:'scale(1)' })),
+    ]),
+    transition(':leave', [
+      animate('500ms', style({ transform:'scale(0)' }))
+    ])
+  ]);

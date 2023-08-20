@@ -23,8 +23,6 @@
     "animate.css": "^4.1.1",
     "codemirror": "^5.65.14",
     
-    "highlight.js": "^11.8.0",
-    "ngx-highlight-js": "^16.1.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

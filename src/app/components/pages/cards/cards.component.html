@@ -1,23 +1,40 @@
-<mat-card class="animate__animated  animate__shakeX">
-    <button>
-        Agregar
-    </button>
+<mat-card class="animate__animated animate__shakeX card">
+    <div class="grid-container-search">
+        <div>
+            <button class="btn">
+                Agregar
+            </button>
+        </div>
+
+        <div class="search">
+            <input type="text" placeholder="Ingresa el título a buscar..." [formControl]="search">
+            <mat-icon class="search-icon">search</mat-icon>
+        </div>
+
+        <div>
+            <span>Modo vista</span>
+            <button mat-icon-button><mat-icon>view_module</mat-icon> </button>
+            <button mat-icon-button><mat-icon>view_carousel</mat-icon> </button>
+        </div>
+    </div>
 </mat-card>
 <br>
 
-    <div class="grid-container">
-        <ng-container *ngFor="let card of cards.slice(currentPage * pageSize, (currentPage + 1) * pageSize)">
-            <mat-card class="mat-elevation-z8">
-                <mat-card-header>
-                    <div mat-card-avatar  [style.background-image]="'url(' + getIconImageUrl(card.icon) + ')'"></div>
-                    <mat-card-title>{{ card.title }}</mat-card-title>
-                    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-                </mat-card-header>
-            </mat-card>
-        </ng-container>
-    </div>
+<div class="grid-container">
+    <ng-container *ngFor="let card of (obs$ | async)?.slice(currentPage * pageSize, (currentPage + 1) * pageSize)">
+        <mat-card class="mat-elevation-z8" [@onOff] #original>
+            <mat-card-header>
+                <div mat-card-avatar [style.background-image]="'url(' + getIconImageUrl(card.icon) + ')'"></div>
+                <mat-card-title>{{ card.title }}</mat-card-title>
+                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+    </ng-container>
+</div>
 
-    <app-pagination [currentPage]="currentPage" [pageSize]="pageSize" [totalItems]="cards.length"
-        (pageChange)="onPageChange($event)">
-    </app-pagination>
+<app-pagination [currentPage]="currentPage" [pageSize]="pageSize" [totalItems]="cards.length"
+    (pageChange)="onPageChange($event)">
+</app-pagination>
 
+
+<app-card-slider></app-card-slider>

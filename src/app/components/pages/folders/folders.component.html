@@ -1,9 +1,45 @@
 <mat-card>
-  <mat-nav-list (drop)="onDrop($event)" (dragover)="onDragOver($event)">
-    <mat-list-item *ngFor="let folder of folders" draggable="true" (dragstart)="onDragStart($event)"
-      (click)="navigate(folder)">
-      <mat-icon mat-list-icon>folder</mat-icon>
-      <h4 mat-line>{{ folder.name }}</h4>
-    </mat-list-item>
-  </mat-nav-list>
+
+  <button class="btn">
+    Agregar
+</button>
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+
+    <div class="folder" *ngFor="let movie of todo" cdkDrag>
+      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+      <mat-icon>folder</mat-icon>
+
+      <div> {{movie}}</div>
+      <mat-icon [matMenuTriggerFor]="menu" matTooltip="Acciones">more_vert</mat-icon>
+
+
+      <div class="svg-container" cdkDragHandle matTooltip="Mover">
+        <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
+          </path>
+          <path d="M0 0h24v24H0z" fill="none"></path>
+        </svg>
+      </div>
+
+
+    </div>
+
+  </div>
 </mat-card>
+
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>dialpad</mat-icon>
+    <span>Redial</span>
+  </button>
+  <button mat-menu-item disabled>
+    <mat-icon>voicemail</mat-icon>
+    <span>Check voice mail</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
+    <span>Disable alerts</span>
+  </button>
+</mat-menu>

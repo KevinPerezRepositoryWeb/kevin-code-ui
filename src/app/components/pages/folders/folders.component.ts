@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackbarComponent } from '../../alerts/snackbar/snackbar.component';
 import { AlertService } from 'src/app/services/alert.service';
-import { Constants } from 'src/app/core/Constants';
 import { Router } from '@angular/router';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 export interface Folders {
   id: string;
@@ -15,7 +13,7 @@ export interface Folders {
 @Component({
   selector: 'app-folders',
   templateUrl: './folders.component.html',
-  styleUrls: ['./folders.component.css']
+  styleUrls: ['./folders.component.css'],
 })
 export class FoldersComponent implements OnInit {
 
@@ -26,47 +24,54 @@ export class FoldersComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  folders: Folders[] = [
-    { id: '1', name: 'Carpeta Front' },
-    { id: '1', name: 'Carpeta Backend' },
-    { id: '1', name: 'Carpeta 3' },
-    // Agrega más carpetas según tus necesidades
-  ];
+  todo = ['todo1', 'todo2', 'todo3', 'todo4'];
 
+hola(){
+  console.log("estoy caegando")
+  return 1000;
+}
 
-  onDragStart(event: any) {
-    event.dataTransfer.setData('text/plain', event.target.id);
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.todo, event.previousIndex, event.currentIndex);
+    this.alertService.openSnackbar('Movido correctamente')
   }
 
-  navigate(folder: Folders) {
-    this.router.navigate(['/cards', { folder:folder.id }])
+  isNavOpen = false;
+
+  toggleNav() {
+    this.isNavOpen = !this.isNavOpen;
   }
 
-  onDragOver(event: any) {
-    console.log("onDragOver-->", event)
+  onDrag(event: MouseEvent) {
+    if (!this.isNavOpen) return;
 
-    event.preventDefault();
-  }
+    const navStyle = window.getComputedStyle(event.currentTarget as HTMLElement);
+    const navTop = parseInt(navStyle.top);
+    const navHeight = parseInt(navStyle.height);
+    const windHeight = window.innerHeight;
+    const movementY = event.movementY;
 
-  onDrop(event: any) {
-    console.log("onDrop-->", event)
-    event.preventDefault();
-    const folderId = event.dataTransfer.getData('text/plain');
-    const index = this.folders.findIndex(folder => folder.name === folderId);
-    const newIndex = this.getChildIndex(event.target) - 1;
-
-    this.folders.splice(newIndex, 0, this.folders.splice(index, 1)[0]);
-    this.alertService.openSnackbar(Constants.messages.custom1, 1500);
-  }
-
-  getChildIndex(element: any): number {
-    const parent = element.parentNode;
-    const children = parent.children;
-
-    for (let i = 0; i < children.length; i++) {
-      if (children[i] === element) return i;
+    const nav = event.currentTarget as HTMLElement;
+    nav.style.top = navTop > 0 ? `${navTop + movementY}px` : '1px';
+    if (navTop > windHeight - navHeight) {
+      nav.style.top = `${windHeight - navHeight}px`;
     }
-    return -1;
   }
 
+  onMouseDown(event: MouseEvent) {
+    if (this.isNavOpen) {
+      const nav = event.currentTarget as HTMLElement;
+      nav.addEventListener('mousemove', this.onDrag.bind(this));
+      nav.addEventListener('mouseup', this.onMouseUp.bind(this));
+      nav.addEventListener('mouseleave', this.onMouseUp.bind(this));
+    }
+  }
+
+  onMouseUp(event: MouseEvent) {
+    const nav = event.currentTarget as HTMLElement;
+    nav.removeEventListener('mousemove', this.onDrag.bind(this));
+    nav.removeEventListener('mouseup', this.onMouseUp.bind(this));
+    nav.removeEventListener('mouseleave', this.onMouseUp.bind(this));
+  }
+  
 }

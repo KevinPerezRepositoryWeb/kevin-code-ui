@@ -7,10 +7,10 @@
   
  
  
-  /* Estilos para pantallas más pequeñas */
-@media screen and (max-width: 768px) {
+/* Estilos adicionales para dispositivos móviles */
+@media (max-width: 768px) {
   .grid-container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr; /* Cambiar a una columna para dispositivos móviles */
   }
 }
 
@@ -26,8 +26,81 @@
 }
 
 .example-header-image {
-  background-image: url('https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg');
+  background-image: url('/assets/icons/java.svg');
   background-size: cover;
 }
 
 
+/* Para Button ***/ 
+
+.btn{
+  border: none;
+  border-radius: 5px;
+  color: #FFF;
+  font-size: 18px;
+  height: 50px;
+  line-height: 50px;
+  box-sizing: border-box;
+  padding: 0 30px;
+  font-weight: 500;
+  min-width: 100px;
+  text-align: center;
+  transition: all .2s ease;
+  white-space: nowrap;
+  background: var(--color-primary);
+  box-shadow: 0 6px 12px #766DE880;
+}
+
+.btn:hover{
+  cursor: pointer;
+      background: var(--color-secondary)
+}
+
+.card {
+  background-color: #F0F6FF;
+
+}
+
+.search{
+  position: relative;
+
+}
+
+.search-icon{
+  left: 18px;
+  right: 18px;
+  pointer-events: none;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.search input{
+  height: 53px;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 0 50px;
+  border: 1px solid #999;
+}
+
+.search input:focus{
+  padding: 0 50px ;
+  border: 2px solid #4D59FB;
+}
+
+.search :where(mat-icon){
+  position: absolute;
+  top: 50%;
+  color: #999;
+  transform: translateY(-50%);
+}
+
+.search input:focus ~ mat-icon{
+  color: #4D59FB;
+}
+
+.grid-container-search {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px; /* Espacio entre los elementos */
+}
