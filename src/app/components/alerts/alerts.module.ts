@@ -5,6 +5,7 @@ import { SnackbarComponent } from './snackbar/snackbar.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PaginationComponent } from './pagination/pagination.component';
 import { DetailCodeComponent } from './detail-code/detail-code.component';
+import { LoaderDialogComponent } from './loader-dialog/loader-dialog.component';
 
 
 
@@ -13,7 +14,8 @@ import { DetailCodeComponent } from './detail-code/detail-code.component';
     ConfirmDialogComponent,
     SnackbarComponent,
     PaginationComponent,
-    DetailCodeComponent
+    DetailCodeComponent,
+    LoaderDialogComponent
   ],
   imports: [
     CommonModule,

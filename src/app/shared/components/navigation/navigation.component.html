@@ -8,7 +8,8 @@
     <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
         (mouseleave)="mouseleave()" *ngIf="visibilitySidenavContent">
         <mat-nav-list>
-            <mat-list-item (click)="showSubmenu = !showSubmenu" (click)="navigate(item)" class="parent" *ngFor="let item of dataNav">
+            <mat-list-item (click)="showSubmenu = !showSubmenu" (click)="navigate(item)" class="parent"
+                *ngFor="let item of dataNav">
                 <span class="full-width" *ngIf="isExpanded || isShowing">{{item.label}}</span>
                 <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
                 <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}"
@@ -19,7 +20,8 @@
     </mat-sidenav>
 
     <div class="container">
-         <router-outlet></router-outlet>
+        <app-breadcrumb></app-breadcrumb>
+        <router-outlet></router-outlet>
     </div>
 
 </mat-sidenav-container>

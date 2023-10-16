@@ -7,6 +7,7 @@ import { PagesModule } from './components/pages/pages.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertsModule } from './components/alerts/alerts.module';
+import { AuthModule } from './components/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { AlertsModule } from './components/alerts/alerts.module';
 
   ],
   imports: [
+    AuthModule,
     PagesModule,
     BrowserModule,
     SharedModule,

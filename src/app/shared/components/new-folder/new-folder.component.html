@@ -1,0 +1,14 @@
+<mat-card class="card-1">
+    <h3>Crear Nueva carpeta</h3>
+    <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label style="color: aliceblue !important;">Nombre de carpeta</mat-label>
+        <input matInput maxlength="30" #input>
+        <mat-icon matSuffix>folder</mat-icon>
+        <mat-hint style="color: red;" align="end">{{input.value.length}}/30</mat-hint>
+    </mat-form-field>
+</mat-card>
+<br>
+<div class="grid-1">
+    <button class="btn-1" (click)="onCancel()">Cancelar</button>
+    <button class="btn-1" (click)="save()">Registrar</button>
+</div>

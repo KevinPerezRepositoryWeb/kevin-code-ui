@@ -1,7 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { Router } from '@angular/router';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { BreadcrumbService } from 'src/app/services/internal/breadcrumb.service';
+import { FolderService } from 'src/app/services/apis/folder.service';
+import { Subject } from 'rxjs';
+import { Folder } from 'src/app/interfaces/folders.interface';
+import { LoaderService } from 'src/app/services/loader.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { NewFolderComponent } from 'src/app/shared/components/new-folder/new-folder.component';
 
 export interface Folders {
   id: string;
@@ -15,63 +22,63 @@ export interface Folders {
   templateUrl: './folders.component.html',
   styleUrls: ['./folders.component.css'],
 })
-export class FoldersComponent implements OnInit {
+export class FoldersComponent implements OnInit, OnDestroy {
+
+  folders: Folder[] = [];
 
   constructor(
     private alertService: AlertService,
-    private router: Router) { }
+    private router: Router,
+    private loaderService: LoaderService,
+    private breadcrumbService: BreadcrumbService,
+    private supabaseService: FolderService,
+    public matDialog: MatDialog,
+
+  ) { }
 
   ngOnInit(): void {
+    this.supabaseService.initFolderChanges$().subscribe(res => { })
+    this.supabaseService.changeFolderSubscribe$().subscribe(res => {
+      console.log("holaaaaaaaa", res)
+    })
+
+    this.getAllFolders();
+    // Actualiza el breadcrumb con el folder "peliculas"
+    this.breadcrumbService.updateBreadcrumb(['Home', 'peliculas']);
   }
 
-  todo = ['todo1', 'todo2', 'todo3', 'todo4'];
+  getAllFolders() {
+    this.loaderService.open()
+    this.supabaseService.getAllFolders().subscribe(res => {
+      this.loaderService.close()
+      this.folders = res
+    });
 
-hola(){
-  console.log("estoy caegando")
-  return 1000;
-}
+  }
+
+  newFolder() {
+    const dialogRef = this.matDialog.open(NewFolderComponent, {
+      width:'350px',
+      disableClose: true,
+    });
+
+    dialogRef?.afterClosed().subscribe(res => {
+
+    });
+  }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.todo, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.folders, event.previousIndex, event.currentIndex);
     this.alertService.openSnackbar('Movido correctamente')
   }
 
-  isNavOpen = false;
 
-  toggleNav() {
-    this.isNavOpen = !this.isNavOpen;
+  navigate(folder: Folder) {
+    this.router.navigate(['/cards', { folder: folder.id }]);
   }
 
-  onDrag(event: MouseEvent) {
-    if (!this.isNavOpen) return;
-
-    const navStyle = window.getComputedStyle(event.currentTarget as HTMLElement);
-    const navTop = parseInt(navStyle.top);
-    const navHeight = parseInt(navStyle.height);
-    const windHeight = window.innerHeight;
-    const movementY = event.movementY;
-
-    const nav = event.currentTarget as HTMLElement;
-    nav.style.top = navTop > 0 ? `${navTop + movementY}px` : '1px';
-    if (navTop > windHeight - navHeight) {
-      nav.style.top = `${windHeight - navHeight}px`;
-    }
+  ngOnDestroy(): void {
+    this.supabaseService.changesFolderUnsubscribe$()
   }
 
-  onMouseDown(event: MouseEvent) {
-    if (this.isNavOpen) {
-      const nav = event.currentTarget as HTMLElement;
-      nav.addEventListener('mousemove', this.onDrag.bind(this));
-      nav.addEventListener('mouseup', this.onMouseUp.bind(this));
-      nav.addEventListener('mouseleave', this.onMouseUp.bind(this));
-    }
-  }
-
-  onMouseUp(event: MouseEvent) {
-    const nav = event.currentTarget as HTMLElement;
-    nav.removeEventListener('mousemove', this.onDrag.bind(this));
-    nav.removeEventListener('mouseup', this.onMouseUp.bind(this));
-    nav.removeEventListener('mouseleave', this.onMouseUp.bind(this));
-  }
-  
 }

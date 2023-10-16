@@ -22,4 +22,6 @@ export class AlertService {
       data: { message: message, duration:duration } // Datos que se pasan al componente Snackbar
     });
   }
+
+  
 }

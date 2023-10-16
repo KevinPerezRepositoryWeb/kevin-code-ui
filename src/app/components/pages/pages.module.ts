@@ -15,7 +15,8 @@ import { DirectiveModule } from 'src/app/directives/directive.module';
     CodeComponent,
     FoldersComponent,
     CardsComponent,
-    CardSliderComponent
+    CardSliderComponent,
+    
   ],
   imports: [
     DirectiveModule,

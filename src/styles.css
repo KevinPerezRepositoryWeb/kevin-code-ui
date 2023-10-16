@@ -10,6 +10,7 @@
   --color-primary: #4070f4; /* Define la variable --color-primary con el color azul como valor */
   --color-secondary: #1a1a41; /* Define la variable --color-*/
   --color-div-input: #f4f4f7;
+  --color-dark: #212121;
 }
 
 html,
@@ -46,5 +47,113 @@ body {
 
 
 
+.grid-container-search {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px; /* Espacio entre los elementos */
+}
 
 
+.search{
+  position: relative;
+
+}
+
+.search-icon{
+  left: 18px;
+  right: 18px;
+  pointer-events: none;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.search input{
+  height: 53px;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 0 50px;
+  border: 1px solid #999;
+}
+
+.search input:focus{
+  padding: 0 50px ;
+  border: 2px solid #4D59FB;
+}
+
+.search :where(mat-icon){
+  position: absolute;
+  top: 50%;
+  color: #999;
+  transform: translateY(-50%);
+}
+
+.search input:focus ~ mat-icon{
+  color: #4D59FB;
+}
+
+
+/**###########################################3 BUTTONS ###############################################3 */
+
+.btn{
+  border: none;
+  border-radius: 5px;
+  color: #FFF;
+  font-size: 18px;
+  height: 50px;
+  line-height: 50px;
+  box-sizing: border-box;
+  padding: 0 30px;
+  font-weight: 500;
+  min-width: 100px;
+  text-align: center;
+  transition: all .2s ease;
+  white-space: nowrap;
+  background: var(--color-primary);
+  box-shadow: 0 6px 12px #766DE880;
+}
+
+.btn:hover{
+  cursor: pointer;
+      background: var(--color-secondary)
+}
+
+
+.btn-1 {
+  padding: 15px 25px;
+  border: unset;
+  border-radius: 15px;
+  color: var(--color-dark);
+  z-index: 1;
+  background: #e8e8e8;
+  position: relative;
+  font-weight: 1000;
+  font-size: 17px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+  overflow: hidden;
+}
+
+.btn-1:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  transition: all 250ms;
+}
+
+.btn-1:hover {
+  color: #e8e8e8;
+}
+
+.btn-1:hover::before {
+  width: 100%;
+}

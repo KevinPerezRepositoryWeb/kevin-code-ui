@@ -1,17 +1,31 @@
-<mat-card>
+<mat-card class="animate__animated animate__shakeX card">
+  <div class="grid-container-search">
+      <div>
+          <button class="btn" (click)="newFolder()">
+              Nueva carpeta
+          </button>
+      </div>
 
-  <button class="btn">
-    Agregar
-</button>
+      <div class="search">
+          <input type="text" placeholder="Ingresa el título a buscar...">
+          <mat-icon class="search-icon">search</mat-icon>
+      </div>
+
+      <div>
+          <span>Modo vista</span>
+          <button mat-icon-button><mat-icon>view_module</mat-icon> </button>
+          <button mat-icon-button><mat-icon>view_carousel</mat-icon> </button>
+      </div>
+  </div>
+</mat-card>
+<mat-card>
   <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
 
-    <div class="folder" *ngFor="let movie of todo" cdkDrag>
+    <div class="folder" *ngFor="let folder of folders" cdkDrag (click)="navigate(folder)">
       <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
       <mat-icon>folder</mat-icon>
 
-      <div> {{movie}}</div>
-      <mat-icon [matMenuTriggerFor]="menu" matTooltip="Acciones">more_vert</mat-icon>
-
+      <div> {{folder.name}}</div>
 
       <div class="svg-container" cdkDragHandle matTooltip="Mover">
         <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
@@ -27,19 +41,3 @@
 
   </div>
 </mat-card>
-
-
-<mat-menu #menu="matMenu">
-  <button mat-menu-item>
-    <mat-icon>dialpad</mat-icon>
-    <span>Redial</span>
-  </button>
-  <button mat-menu-item disabled>
-    <mat-icon>voicemail</mat-icon>
-    <span>Check voice mail</span>
-  </button>
-  <button mat-menu-item>
-    <mat-icon>notifications_off</mat-icon>
-    <span>Disable alerts</span>
-  </button>
-</mat-menu>
